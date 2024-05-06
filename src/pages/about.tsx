@@ -1,10 +1,8 @@
-function About() {
-    const goBack = () => {
-        window.history.back()
-    }
+import { Link } from "react-router-dom";
 
+function About() {
     return <>
-        <button onClick={goBack}>&lt; back</button>
+        <Link to="/">&lt; back</Link>
         <h1 className="text-3xl font-bold underline">
             About
         </h1>

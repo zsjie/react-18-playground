@@ -1,27 +1,28 @@
-import { useEffect, useState } from "react";
 import Home from "./pages/home";
 import Profile from "./pages/profile";
 import About from "./pages/about";
+import { Outlet, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [path, setPath] = useState(window.location.pathname)
 
-  useEffect(() => {
-    const handler = (e: PopStateEvent) => {
-      setPath(window.location.pathname)
-    }
-    window.addEventListener('popstate', handler)
+  return <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="profile" element={<Profile />} />
+      <Route path="about" element={<About />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  </Routes>
+}
 
-    return () => {
-      window.removeEventListener('popstate', handler)
-    }
-  })
-
+function Layout() {
   return <>
-    {path === '/' && <Home />}
-    {path === '/profile' && <Profile />}
-    {path === '/about' && <About />}
+    <Outlet />
   </>
+}
+
+function NotFound() {
+  return <h1>Oops! The page is not found.</h1>
 }
 
 export default App;
